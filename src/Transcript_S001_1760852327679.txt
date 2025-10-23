@@ -1,0 +1,34 @@
+╔══════════════════════════════════════════════════════════╗
+║           UNIVERSITY ACADEMIC TRANSCRIPT                ║
+╚══════════════════════════════════════════════════════════╝
+
+Student ID:     S001
+Generated on:   2025-10-19 11:08:40
+
+═══════════════════════════════════════════════════════════
+                    ACADEMIC RECORD                        
+═══════════════════════════════════════════════════════════
+
+MODULE       NAME                           CREDITS  MARKS  GRADE   
+──────────────────────────────────────────────────────────────────────
+CS3111       Network Programming            3        85     A       
+CS3112       Database Systems               3        78     B+      
+CS3113       Software Engineering           4        92     A+      
+CS3114       Web Development                3        65     B       
+──────────────────────────────────────────────────────────────────────
+
+SUMMARY:
+  Total Modules Completed:  4
+  Total Credits Earned:     13
+  Cumulative GPA:           3.61 / 4.00
+
+  Classification:           Second Class Honours (Upper Division)
+
+═══════════════════════════════════════════════════════════
+
+Note: This is a computer-generated document.
+      No signature is required.
+
+──────────────────────────────────────────────────────────────────────
+              END OF TRANSCRIPT
+──────────────────────────────────────────────────────────────────────
