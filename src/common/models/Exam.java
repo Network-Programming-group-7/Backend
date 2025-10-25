@@ -14,7 +14,7 @@ public class Exam implements Serializable {
     private String endTime;
     private String venue;
     private int maxMarks;
-    private String type; // MIDTERM, FINAL, PRACTICAL
+    private String type;
     
     public Exam() {
         this.maxMarks = 100;
@@ -27,6 +27,19 @@ public class Exam implements Serializable {
         this.maxMarks = 100;
     }
     
+    public Exam(String id, String moduleCode, String batchId, Date date, 
+                String startTime, String endTime, String venue, int maxMarks, String type) {
+        this.id = id;
+        this.moduleCode = moduleCode;
+        this.batchId = batchId;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.venue = venue;
+        this.maxMarks = maxMarks;
+        this.type = type;
+    }
+    
     public boolean isConflictWith(Exam other) {
         if (!this.batchId.equals(other.batchId)) {
             return false;
@@ -37,7 +50,6 @@ public class Exam implements Serializable {
         return this.startTime.equals(other.startTime);
     }
     
-    // Getters and Setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
     
