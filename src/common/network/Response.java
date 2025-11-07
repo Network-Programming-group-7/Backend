@@ -28,6 +28,7 @@ public class Response implements Serializable {
         this.timestamp = new Date();
     }
     
+
     public static Response success(Object data) {
         return new Response("SUCCESS", data);
     }

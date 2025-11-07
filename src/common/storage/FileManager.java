@@ -11,11 +11,12 @@ import java.util.List;
  * Uses Java serialization for object persistence
  */
 public class FileManager implements DataStorage {
-    
+
+    private static FileManager instance;
     /**
      * Constructor - creates data directory if not exists
      */
-    public FileManager() {
+    private FileManager() {
         File dataDir = new File(Constants.DATA_DIR);
         if (!dataDir.exists()) {
             boolean created = dataDir.mkdirs();
@@ -185,5 +186,12 @@ public class FileManager implements DataStorage {
      */
     public int getCount(String filename) {
         return loadAll(filename).size();
+    }
+
+    public static FileManager getInstance() {
+        if (instance == null) {
+            instance = new FileManager();
+        }
+        return instance;
     }
 }

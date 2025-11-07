@@ -9,6 +9,7 @@ public class Lecturer implements Serializable {
     private static final long serialVersionUID = 1L;
     
     private String id;
+    private String password;
     private String name;
     private String email;
     private String department;
@@ -21,6 +22,7 @@ public class Lecturer implements Serializable {
         this.joinDate = new Date();
     }
     
+
     public Lecturer(String id, String name, String email, String department) {
         this.id = id;
         this.name = name;
@@ -30,10 +32,14 @@ public class Lecturer implements Serializable {
         this.joinDate = new Date();
     }
     
+
     // Getters and Setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
-    
+
+    public String getPassword() {return password;}
+    public void setPassword(String password) {this.password = password;}
+
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     
