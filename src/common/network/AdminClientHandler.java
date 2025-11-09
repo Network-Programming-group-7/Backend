@@ -1,12 +1,12 @@
-package network;
-
-import common.models.Module;
-import common.models.Student;
-import storage.DataStore;
+package common.network;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import common.models.Module;
+import common.models.Student;
+import common.storage.DataStore;
 
 public class AdminClientHandler extends ClientHandler {
     public AdminClientHandler(java.net.Socket socket, DataStore store) {

@@ -1,9 +1,9 @@
-package storage;
+package common.storage;
 
 import common.models.Module;
 import common.models.ModuleRegistration;
 import common.models.Student;
-import utils.ValidationUtils;
+import common.utils.ValidationUtils;
 
 import java.io.IOException;
 import java.nio.file.Path;

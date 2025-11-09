@@ -1,11 +1,11 @@
-package network;
-
-import common.models.Module;
-import common.models.ModuleRegistration;
-import storage.DataStore;
+package common.network;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import common.models.Module;
+import common.models.ModuleRegistration;
+import common.storage.DataStore;
 
 public class StudentClientHandler extends ClientHandler {
     public StudentClientHandler(java.net.Socket socket, DataStore store) {

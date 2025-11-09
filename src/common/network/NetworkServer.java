@@ -1,12 +1,12 @@
-package network;
-
-import storage.DataStore;
+package common.network;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import common.storage.DataStore;
 
 public class NetworkServer implements Runnable {
     private final int port;
