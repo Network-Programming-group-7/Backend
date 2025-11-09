@@ -1,17 +1,25 @@
 package common.storage;
 
-import common.models.Module;
-import common.models.ModuleRegistration;
-import common.models.Student;
-import common.utils.ValidationUtils;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
+
+import common.models.Module;
+import common.models.ModuleRegistration;
+import common.models.Student;
+import common.utils.ValidationUtils;
 
 public class DataStore {
     private static final int MAX_CREDITS_PER_SEM = 30;
@@ -27,6 +35,8 @@ public class DataStore {
 
     public DataStore() {
         loadAll();
+        // Initialize with sample data if files don't exist or are empty
+        initializeSampleData();
     }
 
     public synchronized void loadAll() {
@@ -44,9 +54,79 @@ public class DataStore {
             PersistenceManager.save(modulesFile, new HashMap<>(modules));
             PersistenceManager.save(regsFile, new HashMap<>(registrationsByStudent));
         } catch (IOException e) {
-            // Log to stderr for simplicity
             System.err.println("Persistence error: " + e.getMessage());
         }
+    }
+
+    /**
+     * HARD-CODED SAMPLE DATA INITIALIZATION
+     * Initialize sample students, modules, and registrations if no data exists
+     */
+    private synchronized void initializeSampleData() {
+        // Check if we already have data
+        if (!students.isEmpty() && !modules.isEmpty()) {
+            System.out.println("📚 Existing data found. Skipping sample data initialization.");
+            return;
+        }
+
+        System.out.println("🔧 No existing data found. Initializing sample data...");
+
+        // HARD-CODED STUDENTS
+        Student s1 = new Student("std1", "John Smith", "john.smith@student.university.edu", 
+                                "CS2023A", "+1-555-0101", LocalDate.of(2023, 9, 1));
+        Student s2 = new Student("std2", "Emma Wilson", "emma.wilson@student.university.edu", 
+                                "CS2023A", "+1-555-0102", LocalDate.of(2023, 9, 1));
+        Student s3 = new Student("std3", "Michael Brown", "michael.brown@student.university.edu", 
+                                "CS2023B", "+1-555-0103", LocalDate.of(2023, 9, 1));
+        Student s4 = new Student("std4", "Sophia Davis", "sophia.davis@student.university.edu", 
+                                "EE2023A", "+1-555-0104", LocalDate.of(2023, 9, 1));
+
+        students.put(s1.getId(), s1);
+        students.put(s2.getId(), s2);
+        students.put(s3.getId(), s3);
+        students.put(s4.getId(), s4);
+
+        // HARD-CODED MODULES
+        Module m1 = new Module("CS101", "Introduction to Programming", 4, "Dr. Sarah Johnson", 1, 
+                              "Fundamental programming concepts using Java");
+        Module m2 = new Module("CS102", "Data Structures", 4, "Prof. Michael Chen", 2, 
+                              "Linear and non-linear data structures");
+        Module m3 = new Module("CS201", "Object-Oriented Programming", 3, "Dr. Sarah Johnson", 3, 
+                              "Advanced OOP concepts and design patterns");
+        Module m4 = new Module("CS301", "Computer Networks", 3, "Prof. Michael Chen", 5, 
+                              "Network protocols, TCP/IP, socket programming");
+        Module m5 = new Module("EE101", "Circuit Analysis", 4, "Dr. Jennifer Lee", 1, 
+                              "Basic electrical circuit analysis");
+
+        modules.put(m1.getCode(), m1);
+        modules.put(m2.getCode(), m2);
+        modules.put(m3.getCode(), m3);
+        modules.put(m4.getCode(), m4);
+        modules.put(m5.getCode(), m5);
+
+        // HARD-CODED REGISTRATIONS
+        registrationsByStudent.put("std1", new ArrayList<>(Arrays.asList(
+            new ModuleRegistration("std1", "CS101", 1),
+            new ModuleRegistration("std1", "CS102", 2)
+        )));
+        registrationsByStudent.put("std2", new ArrayList<>(Arrays.asList(
+            new ModuleRegistration("std2", "CS101", 1)
+        )));
+        registrationsByStudent.put("std3", new ArrayList<>(Arrays.asList(
+            new ModuleRegistration("std3", "CS201", 3)
+        )));
+        registrationsByStudent.put("std4", new ArrayList<>(Arrays.asList(
+            new ModuleRegistration("std4", "EE101", 1)
+        )));
+
+        // Save all sample data to files
+        persistAll();
+
+        System.out.println("✅ Sample data initialized:");
+        System.out.println("   📖 " + students.size() + " students added");
+        System.out.println("   📚 " + modules.size() + " modules added");
+        System.out.println("   ✍️  " + registrationsByStudent.values().stream()
+                .mapToInt(List::size).sum() + " registrations added");
     }
 
     // Student CRUD
@@ -68,7 +148,10 @@ public class DataStore {
         if (s == null) return false;
         switch (field.toLowerCase(Locale.ROOT)) {
             case "name": s.setName(value); break;
-            case "email": if (!ValidationUtils.isValidEmail(value)) return false; s.setEmail(value); break;
+            case "email":
+                if (!ValidationUtils.isValidEmail(value)) return false;
+                s.setEmail(value);
+                break;
             case "batch": s.setBatch(value); break;
             case "phone": s.setPhone(value); break;
             case "enrollmentdate": s.setEnrollmentDate(LocalDate.parse(value)); break;
